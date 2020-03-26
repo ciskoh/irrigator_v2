@@ -1,0 +1,29 @@
+
+# Notes on the arduino self made irrgator script 
+## made with nodeMCU, relay module, potentiometer and LCD screen
+
+#### made by matteo jucker riva
+#### Standard GNU licence applies
+
+*Main blocks:*
+
+1. Microcontroller
+2. Potentiometer
+3. Relay module
+4. LCD screen
+
+**General structure:**  
+
+ 1. Define pins for each component  
+ 2. Define timekeeping variables    
+ 3. Define potentiometer Variables  
+ 4. Define relay variables  
+ 5. Define LCD variables and functions  
+ 6. Define settings procedure   
+ 7. Define sleep mode   
+ 8. Define status variable and related commands  
+ 9. Setup function  
+ 10. Loop function  
+
+
+

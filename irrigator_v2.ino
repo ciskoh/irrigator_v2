@@ -28,11 +28,12 @@
 //a. Potentiometer
 
 //function to detect if potentiometer changes
+bool potTrigger=false;
 int potValue;
 int potValue0 = -2;
 int sensitivity = 5;
 
-bool checkPotChange() {
+void checkPotChange() {
   if (potValue0 = -2) {
     potValue0 = potValue;
   }; //set initial value
@@ -41,7 +42,7 @@ bool checkPotChange() {
   if (check) {
     potValue0 = -2;
   };  //reset initial value before ending
-  return check; //return boolean
+  bool potTrigger=true;
 };
 
 //translate pot value in classes
@@ -125,7 +126,8 @@ bool softDelay(int secondsDelay, unsigned long time0 = time0) {
 //3. SETTINGS PROCEDURE
 int flowControl = 0;
 int sector;
-void changeIrrSettings() {
+
+int changeIrrSettings() {
   // Settings start
 
   // Display ciao andre
@@ -148,8 +150,6 @@ void changeIrrSettings() {
     sector = potClass(4, potValue);
     lcd.clear()
   }
-
-
   // Choose reps
   if (softDelay(8) && flowControl == 2)
   {
@@ -160,7 +160,6 @@ void changeIrrSettings() {
     relArray[0][sector] = potClass(5, potValue);
     lcd.clear()
   }
-
   // Choose time
   if (softDelay(8) && flowControl == 3) {
     showMessage("scegli ripetizioni", String(potClass(30, potValue)));
@@ -171,24 +170,49 @@ void changeIrrSettings() {
     relArray[1][sector] = potClass(30, potValue);
     lcd.clear()
   }
-
+  // end of settings
   if (flowControl == 4 && softDelay(5)) {
-
-    showMessage("   fine    ", "   settaggi  ");
-  } else if (flowControl==4)
-  {
-    int titles[3]={"settore", "ripe", "tempo"};
-    int values=relArray[][sector];
-    // TODO cycle through 0-3 series
-    // create string to display results
-    flowControl=0;
+    //display final settings
+    String finString="settore: "+String(sector)+"; ";
+    finString=finString+"ripe: "+String(relArray[0][sector])+"; ";
+    finString=finString+"tempo: "+String(relArray[1][sector])+"; ";
+    showMessage("fine settaggi", finString);
+    flowControl = flowControl + 1;
   };
+};
 
-  //IRRIGATION MODE
+  // IRRIGATION MODE
 
+ //function calcNextIrrigationTime
 
-  // 7. Define sleep mode
-  // 8. Define status variable and related commands
+unsigned long calcNextIrrigationTime(int reps){
+  unsigned long time0=millis();
+  interval= long( (1000*60*60*24)/reps) );
+  nextIrrigation=time0+interval;
+  return nextIrrigation;
+  }
+
+ //function start irrgation
+ 
+
+ //function stopIrrigation
+ 
+ // 7. Define sleep mode
+ 
+// 8. MODE variables
+
+int mode=0; 
+//0 do nothing 
+//1 set irrigation
+//2 calc irrigation
+//3 ready to irrigate
+//4 sleep
+
+void setMode(){
+  if (potTrigger)
+  
+}
+
   // 9. Setup function
   // 10. Loop function
 
